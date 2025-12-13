@@ -82,7 +82,7 @@
 	users.users.zaivod = {
 		isNormalUser = true;
 		description = "Zaid";
-		extraGroups = [ "networkmanager" "wheel" ];
+		extraGroups = [ "networkmanager" "wheel" "docker" ];
 		packages = with pkgs; [
 		#	thunderbird
 		];
@@ -104,7 +104,6 @@
 	];
 
 	virtualisation.docker.enable = true;
-	users.extraGroups.docker.members = [ "zaivod" ];
 
 	# Some programs need SUID wrappers, can be configured further or are
 	# started in user sessions.
