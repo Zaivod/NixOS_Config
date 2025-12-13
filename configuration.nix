@@ -103,6 +103,9 @@
 		btop
 	];
 
+	virtualisation.docker.enable = true;
+	users.extraGroups.docker.members = [ "zaivod" ];
+
 	# Some programs need SUID wrappers, can be configured further or are
 	# started in user sessions.
 	# programs.mtr.enable = true;
