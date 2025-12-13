@@ -46,9 +46,15 @@
 	# Enable the X11 windowing system.
 	services.xserver.enable = true;
 
-	# Enable the GNOME Desktop Environment.
-	services.xserver.displayManager.gdm.enable = true;
-	services.xserver.desktopManager.gnome.enable = true;
+	# Cinnemon
+	services.libinput.enable = true;
+	services.displayManager.defaultSession = "cinnamon";
+	services.xserver = {
+		displayManager.lightdm.enable = true;
+		desktopManager = {
+			cinnamon.enable = true;
+		};
+	};
 
 	# Configure keymap in X11
 	services.xserver.xkb = {
