@@ -107,9 +107,20 @@
 		wget
 		git
 		btop
+
+		ollama
 	];
 
+	# Docker
 	virtualisation.docker.enable = true;
+
+	# Ollama
+	services.ollama = {
+		enable = true;
+		acceleration = "cuda";
+		# Optional: preload models, see https://ollama.com/library
+		# loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b"];
+	};
 
 	# Some programs need SUID wrappers, can be configured further or are
 	# started in user sessions.
