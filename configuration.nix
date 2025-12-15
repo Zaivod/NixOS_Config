@@ -6,8 +6,10 @@
 
 {
 	imports =
-		[ # Include the results of the hardware scan.
+		[ 
 			./hardware-configuration.nix
+			./packages.nix
+			./desktop-env.nix
 		];
 
 	# Bootloader.
@@ -15,7 +17,7 @@
 	boot.loader.efi.canTouchEfiVariables = true;
 
 	boot.initrd.luks.devices."luks-78820554-bcb6-416e-9f95-fb0c9073a9b3".device = "/dev/disk/by-uuid/78820554-bcb6-416e-9f95-fb0c9073a9b3";
-	networking.hostName = "nixos"; # Define your hostname.
+	networking.hostName = "ZaivodSRV";	# Define your hostname.
 	# networking.wireless.enable = true;	# Enables wireless support via wpa_supplicant.
 
 	# Configure network proxy if necessary
@@ -43,47 +45,6 @@
 		LC_TIME = "bg_BG.UTF-8";
 	};
 
-	# Enable the X11 windowing system.
-	services.xserver.enable = true;
-
-	# Cinnemon
-	services.libinput.enable = true;
-	services.displayManager.defaultSession = "cinnamon";
-	services.xserver = {
-		displayManager.lightdm.enable = true;
-		desktopManager = {
-			cinnamon.enable = true;
-		};
-	};
-
-	# Configure keymap in X11
-	services.xserver.xkb = {
-		layout = "us";
-		variant = "";
-	};
-
-	# Enable CUPS to print documents.
-	services.printing.enable = true;
-
-	# Enable sound with pipewire.
-	services.pulseaudio.enable = false;
-	security.rtkit.enable = true;
-	services.pipewire = {
-		enable = true;
-		alsa.enable = true;
-		alsa.support32Bit = true;
-		pulse.enable = true;
-		# If you want to use JACK applications, uncomment this
-		#jack.enable = true;
-
-		# use the example session manager (no others are packaged yet so this is enabled by default,
-		# no need to redefine it in your config for now)
-		#media-session.enable = true;
-	};
-
-	# Enable touchpad support (enabled default in most desktopManager).
-	# services.xserver.libinput.enable = true;
-
 	# Define a user account. Don't forget to set a password with ‘passwd’.
 	users.users.zaivod = {
 		isNormalUser = true;
@@ -92,57 +53,6 @@
 		packages = with pkgs; [
 		#	thunderbird
 		];
-	};
-
-	# Install firefox.
-	programs.firefox.enable = true;
-
-	# Allow unfree packages
-	nixpkgs.config.allowUnfree = true;
-
-	# List packages installed in system profile. To search, run:
-	# $ nix search wget
-	environment.systemPackages = with pkgs; [
-		vim
-		wget
-		git
-		btop
-
-		nvtopPackages.nvidia
-		ollama
-	];
-
-	programs.ssh = {
-		startAgent = true;
-		extraConfig = ''
-			AddKeysToAgent yes
-			IdentityFile /root/.ssh/github
-		'';
-	};
-
-	# Docker
-	virtualisation.docker.enable = true;
-
-	# Ollama
-	services.ollama = {
-		enable = true;
-		acceleration = "cuda";
-		# Optional: preload models, see https://ollama.com/library
-		# loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b"];
-	};
-
-	# Nvidia driver
-	hardware.graphics.enable = true;
-
-	# Load nvidia driver for Xorg and Wayland
-	services.xserver.videoDrivers = ["nvidia"];
-
-	hardware.nvidia = {
-		modesetting.enable = true;
-		powerManagement.enable = false;
-		powerManagement.finegrained = false;
-		open = true;
-		package = config.boot.kernelPackages.nvidiaPackages.stable;
 	};
 
 	# Some programs need SUID wrappers, can be configured further or are
@@ -171,5 +81,4 @@
 	# Before changing this value read the documentation for this option
 	# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 	system.stateVersion = "25.05"; # Did you read the comment?
-
 }
