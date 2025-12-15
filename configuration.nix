@@ -131,19 +131,19 @@
 		# loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b"];
 	};
 
-	## Nvidia driver
-	#hardware.graphics.enable = true;
+	# Nvidia driver
+	hardware.graphics.enable = true;
 
-	## Load nvidia driver for Xorg and Wayland
-	#services.xserver.videoDrivers = ["nvidia"];
+	# Load nvidia driver for Xorg and Wayland
+	services.xserver.videoDrivers = ["nvidia"];
 
-	#hardware.nvidia = {
-	#	modesetting.enable = true;
-	#	powerManagement.enable = false;
-	#	powerManagement.finegrained = false;
-	#	open = true;
-	#	package = config.boot.kernelPackages.nvidiaPackages.stable;
-	#};
+	hardware.nvidia = {
+		modesetting.enable = true;
+		powerManagement.enable = false;
+		powerManagement.finegrained = false;
+		open = true;
+		package = config.boot.kernelPackages.nvidiaPackages.stable;
+	};
 
 	# Some programs need SUID wrappers, can be configured further or are
 	# started in user sessions.
