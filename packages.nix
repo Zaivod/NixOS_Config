@@ -15,6 +15,12 @@
 
 		nvtopPackages.nvidia
 		ollama
+		onlyoffice-desktopeditors
+	];
+
+	# Onlyiffice unfree fonts
+	fonts.packages = with pkgs; [
+		corefonts
 	];
 
 	# Install firefox.
